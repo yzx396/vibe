@@ -160,22 +160,23 @@ claude
 > /vibe-ask
 
 # Using direct CLI
-./tools/vibe/vibe select --note "500 error on API call"
-./tools/vibe/vibe ask "Fix the API error shown"
+vibe select --note "500 error on API call"
+vibe ask "Fix the API error shown"
 
 # With custom log file
-./tools/vibe/vibe ask "Debug this" --logs /tmp/backend.log --tail 500
+vibe ask "Debug this" --logs /tmp/backend.log --tail 500
 
 # Skip git context
-./tools/vibe/vibe ask "Just look at the screenshot" --no-diff
+vibe ask "Just look at the screenshot" --no-diff
 ```
 
 ## Optional: Shell Alias
 
-Add to `~/.zshrc` or `~/.bashrc`:
+The install.sh script automatically adds a `vibe` alias to your shell config. If you need to add it manually:
 
 ```bash
-alias vibe="$PWD/tools/vibe/vibe"
+# Add to ~/.zshrc or ~/.bashrc
+alias vibe="$HOME/.vibe/vibe/tools/vibe/vibe"
 ```
 
 Then use:
