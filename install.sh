@@ -31,10 +31,9 @@ else
     VIBE_DIR="$INSTALL_DIR/vibe"
 fi
 
-# Run vibe init
-echo "[vibe] Running vibe init..."
-cd "$VIBE_DIR"
-./tools/vibe/vibe init
+# NOTE: vibe init should be run in YOUR project folder, not here
+# This only sets up the vibe tool itself
+echo "[vibe] Note: Run 'vibe init' in your project folder to set up .vibedbg/"
 
 # Set up Claude Code integration
 echo "[vibe] Setting up Claude Code integration..."
@@ -71,13 +70,19 @@ fi
 echo ""
 echo "[vibe] Installation complete!"
 echo ""
-echo "Usage:"
-echo "  vibe init                    # Initialize .vibedbg/ directory"
+echo "Installed to: $VIBE_DIR"
+echo ""
+echo "Usage in any project folder:"
+echo "  cd /path/to/your/project"
+echo "  vibe init                    # Initialize .vibedbg/ in current project"
 echo "  vibe select [--note \"...\"]   # Capture screen region"
 echo "  vibe ask \"...\"               # Ask Claude to fix"
 echo ""
-echo "Or use within Claude Code CLI:"
+echo "Or use within Claude Code CLI (from any project):"
 echo "  /vibe-select                  # Capture screen region"
 echo "  /vibe-ask                     # Analyze and fix"
 echo ""
-echo "Installation location: $VIBE_DIR"
+echo "Next steps:"
+echo "  1. Run: source $SHELL_CONFIG"
+echo "  2. cd to your project folder"
+echo "  3. Run: vibe init"
