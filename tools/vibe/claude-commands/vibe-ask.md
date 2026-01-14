@@ -12,10 +12,11 @@ cat .vibedbg/region.json 2>/dev/null
 git status --porcelain=v1
 git diff --stat 2>/dev/null
 tail -n 200 .vibedbg/terminal.log 2>/dev/null
+echo "Screenshot path: $(pwd)/.vibedbg/region.png"
 ```
 
 Then:
-1. Read the screenshot at `.vibedbg/region.png`
+1. Read the screenshot at the absolute path shown above (use the `echo` output)
 2. Identify any errors, bugs, or issues visible in the image
 3. Search the codebase for relevant files
 4. Propose and implement fixes
