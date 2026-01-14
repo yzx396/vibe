@@ -5,7 +5,7 @@ description: Capture a screen region using vibe
 Please run the following command to capture a screen region:
 
 ```bash
-./tools/vibe/vibe select
+vibe select
 ```
 
 This will:
@@ -17,5 +17,5 @@ After capturing, you can use `/vibe-ask` to ask me to analyze and fix issues sho
 
 Optional: Add a note to describe what you captured:
 ```bash
-./tools/vibe/vibe select --note "describe what this screenshot shows"
+vibe select --note "describe what this screenshot shows"
 ```
