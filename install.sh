@@ -54,28 +54,26 @@ fi
 # Make vibe executable
 chmod +x tools/vibe/vibe
 
-# Add to PATH if not already there
+# Create symlink in ~/.local/bin for global access
+LOCAL_BIN="$HOME/.local/bin"
+mkdir -p "$LOCAL_BIN"
+ln -sf "$VIBE_DIR/tools/vibe/vibe" "$LOCAL_BIN/vibe"
+echo "[vibe] Created symlink: $LOCAL_BIN/vibe"
+
+# Add ~/.local/bin to PATH if not already there
 SHELL_CONFIG="$HOME/.zshrc"
 if [ -n "$BASH_VERSION" ]; then
     SHELL_CONFIG="$HOME/.bashrc"
 fi
 
-# Check if vibe alias already exists
-if ! grep -q "alias vibe=" "$SHELL_CONFIG" 2>/dev/null; then
-    echo "[vibe] Adding alias to $SHELL_CONFIG..."
+if ! grep -q "\.local/bin" "$SHELL_CONFIG" 2>/dev/null; then
+    echo "[vibe] Adding ~/.local/bin to PATH in $SHELL_CONFIG..."
     echo "" >> "$SHELL_CONFIG"
-    echo "# vibe: screen region debugging tool" >> "$SHELL_CONFIG"
-    echo "alias vibe=\"$VIBE_DIR/tools/vibe/vibe\"" >> "$SHELL_CONFIG"
-    echo "[vibe] Added 'vibe' alias to $SHELL_CONFIG"
-    echo "[vibe] Run 'source $SHELL_CONFIG' or restart your shell to use the alias."
+    echo "# vibe: add ~/.local/bin to PATH" >> "$SHELL_CONFIG"
+    echo "export PATH=\"$LOCAL_BIN:\$PATH\"" >> "$SHELL_CONFIG"
+    echo "[vibe] Run 'source $SHELL_CONFIG' or restart your shell to use 'vibe' command."
 else
-    echo "[vibe] 'vibe' alias already exists in $SHELL_CONFIG"
-fi
-
-# Create symlink for global access (optional)
-if [ ! -L "$INSTALL_DIR/vibe" ] && [ -w "/usr/local/bin" ] 2>/dev/null; then
-    echo "[vibe] Creating symlink in /usr/local/bin (requires sudo)..."
-    sudo ln -sf "$VIBE_DIR/tools/vibe/vibe" "/usr/local/bin/vibe" 2>/dev/null || echo "[vibe] Could not create symlink (may need sudo)"
+    echo "[vibe] ~/.local/bin already in PATH"
 fi
 
 echo ""
