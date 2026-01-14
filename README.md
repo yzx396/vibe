@@ -32,7 +32,7 @@ cd vibe
 ./install.sh
 ```
 
-This installs vibe to `~/.vibe/` and sets up the `vibe` command globally.
+This installs vibe to `~/.vibe/` and sets up the `vibe` command globally. Also supports `ccg` (claude-glm).
 
 ### Manual Install
 
@@ -40,25 +40,33 @@ This installs vibe to `~/.vibe/` and sets up the `vibe` command globally.
 2. Set up Claude Code integration:
 
 ```bash
+# For standard Claude Code CLI
 cp tools/vibe/claude-commands/*.md ~/.claude/commands/
+
+# For ccg (claude-glm)
+cp tools/vibe/claude-commands/*.md ~/.claude-glm/commands/
 ```
 
-This creates Claude Code commands (`/vibe-select`, `/vibe-ask`) that work globally.
+This creates Claude Code commands (`/vibe-select`, `/vibe-ask`) that work globally with both `claude` and `ccg`.
 
 ## Usage
 
 **vibe installs once globally, then works in any project folder.**
 
-### Recommended: Use within Claude Code CLI
+### Recommended: Use within Claude Code CLI (or ccg)
 
 Everything happens in one interface:
 
 ```bash
 # Start Claude Code CLI in your project
 cd /path/to/your/project
-claude
 
-# Then inside Claude Code, use:
+# Use standard claude
+claude
+# Or use ccg (claude-glm)
+ccg
+
+# Then inside, use:
 /vibe-select          # Capture screen region
 /vibe-ask             # Analyze and fix the issue
 ```

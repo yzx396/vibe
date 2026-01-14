@@ -37,8 +37,19 @@ echo "[vibe] Note: Run 'vibe init' in your project folder to set up .vibedbg/"
 
 # Set up Claude Code integration
 echo "[vibe] Setting up Claude Code integration..."
+
+# Install to standard Claude Code CLI
 mkdir -p "$CLAUDE_COMMANDS_DIR"
 cp tools/vibe/claude-commands/*.md "$CLAUDE_COMMANDS_DIR/"
+echo "[vibe] Installed commands to $CLAUDE_COMMANDS_DIR"
+
+# Also install to ccg (claude-glm) if it exists
+CCG_COMMANDS_DIR="$HOME/.claude-glm/commands"
+if [ -d "$HOME/.claude-glm" ] || command -v ccg &>/dev/null || command -v claude-glm &>/dev/null; then
+    mkdir -p "$CCG_COMMANDS_DIR"
+    cp tools/vibe/claude-commands/*.md "$CCG_COMMANDS_DIR/"
+    echo "[vibe] Also installed commands to $CCG_COMMANDS_DIR (for ccg)"
+fi
 
 # Make vibe executable
 chmod +x tools/vibe/vibe
