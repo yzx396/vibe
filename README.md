@@ -2,6 +2,14 @@
 
 A tiny CLI tool for macOS that captures screen regions and helps debug issues using Claude Code CLI.
 
+## 📺 Demo
+
+Watch Vibe in action (2:43):
+
+[![Vibe Demo](https://img.youtube.com/vi/tCvOZ0IUxm0/maxresdefault.jpg)](https://youtu.be/tCvOZ0IUxm0)
+
+*Click to watch: Claude Code Can Read Your Screen now!*
+
 ## Features
 
 - **Region screenshot capture** - Select any area of your screen to debug
