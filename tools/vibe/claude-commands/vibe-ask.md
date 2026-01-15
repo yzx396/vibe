@@ -2,7 +2,7 @@
 description: Analyze the vibe screenshot and recommend fixes
 ---
 
-Please read the screenshot at `.vibedbg/region.png` and help me analyze the issue shown.
+Please help me analyze an issue shown in a screenshot.
 
 First, check if the screenshot exists and gather context:
 
