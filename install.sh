@@ -38,17 +38,30 @@ echo "[vibe] Note: Run 'vibe init' in your project folder to set up .vibedbg/"
 # Set up Claude Code integration
 echo "[vibe] Setting up Claude Code integration..."
 
-# Install to standard Claude Code CLI
+# Install to standard Claude Code CLI using symlinks
+# This way bug fixes in the repo automatically apply to installed commands
 mkdir -p "$CLAUDE_COMMANDS_DIR"
-cp tools/vibe/claude-commands/*.md "$CLAUDE_COMMANDS_DIR/"
-echo "[vibe] Installed commands to $CLAUDE_COMMANDS_DIR"
+# Remove old copies if they exist
+rm -f "$CLAUDE_COMMANDS_DIR"/vibe-*.md
+# Create symlinks
+for cmd_file in tools/vibe/claude-commands/*.md; do
+    cmd_name=$(basename "$cmd_file")
+    ln -sf "$VIBE_DIR/$cmd_file" "$CLAUDE_COMMANDS_DIR/$cmd_name"
+done
+echo "[vibe] Symlinked commands to $CLAUDE_COMMANDS_DIR"
 
 # Also install to ccg (claude-glm) if it exists
 CCG_COMMANDS_DIR="$HOME/.claude-glm/commands"
 if [ -d "$HOME/.claude-glm" ] || command -v ccg &>/dev/null || command -v claude-glm &>/dev/null; then
     mkdir -p "$CCG_COMMANDS_DIR"
-    cp tools/vibe/claude-commands/*.md "$CCG_COMMANDS_DIR/"
-    echo "[vibe] Also installed commands to $CCG_COMMANDS_DIR (for ccg)"
+    # Remove old copies if they exist
+    rm -f "$CCG_COMMANDS_DIR"/vibe-*.md
+    # Create symlinks
+    for cmd_file in tools/vibe/claude-commands/*.md; do
+        cmd_name=$(basename "$cmd_file")
+        ln -sf "$VIBE_DIR/$cmd_file" "$CCG_COMMANDS_DIR/$cmd_name"
+    done
+    echo "[vibe] Also symlinked commands to $CCG_COMMANDS_DIR (for ccg)"
 fi
 
 # Make vibe executable
@@ -85,11 +98,14 @@ echo "Usage in any project folder:"
 echo "  cd /path/to/your/project"
 echo "  vibe init                    # Initialize .vibedbg/ in current project"
 echo "  vibe select [--note \"...\"]   # Capture screen region"
-echo "  vibe ask \"...\"               # Ask Claude to fix"
+echo "  vibe ask \"...\"               # Ask Claude to analyze"
 echo ""
 echo "Or use within Claude Code CLI (from any project):"
 echo "  /vibe-select                  # Capture screen region"
-echo "  /vibe-ask                     # Analyze and fix"
+echo "  /vibe-ask                     # Analyze and recommend fixes"
+echo ""
+echo "Note: Commands are symlinked, so bug fixes auto-apply when you"
+echo "      'cd ~/.vibe/vibe && git pull' in the install directory."
 echo ""
 echo "Next steps:"
 echo "  1. Run: source $SHELL_CONFIG"
